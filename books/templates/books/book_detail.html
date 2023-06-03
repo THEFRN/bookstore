@@ -10,4 +10,6 @@
     <h5>price: {{ book.price }}</h5>
     <br>
     <a class="btn btn-success" href="{% url 'book_list' %}">Books List</a>
+    <a class="btn btn-info" href="{% url 'book_update' book.id %}">edit!</a>
+    <a class="btn btn-danger" href="{% url 'book_delete' book.id %}">Delete!</a>
 {% endblock %}

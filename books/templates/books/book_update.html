@@ -3,13 +3,13 @@
 {% load crispy_forms_tags %}
 
 {% block page_title %}
-    Add A Book
+    Edit A Book
 {% endblock %}
 
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
          {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Add Book!</button>
+        <button type="submit" class="btn btn-success">Change!</button>
     </form>
 {% endblock %}

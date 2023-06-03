@@ -3,13 +3,14 @@
 {% load crispy_forms_tags %}
 
 {% block page_title %}
-    Add A Book
+    Delete A Book
 {% endblock %}
 
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Add Book!</button>
+         <h1>deleting "{{ book.title }}"?</h1>
+        <p>Are you sure you want to delete "{{ book.title }}"</p>
+        <button class="btn btn-danger" type="submit">Delete</button>
     </form>
 {% endblock %}
