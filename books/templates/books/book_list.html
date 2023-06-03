@@ -6,6 +6,9 @@
 {% block content %}
     {% for book in books %}
         <h1>{{ book.title }}</h1>
+        <p>{{ book.description }}</p>
+        <a class="btn btn-sm btn-success" href="{{ book.get_absolute_url }}">Read More</a>
+        <br>
     {% endfor %}
     
 {% endblock content%}
