@@ -9,6 +9,9 @@
         <p>{{ book.description }}</p>
         <a class="btn btn-sm btn-success" href="{{ book.get_absolute_url }}">Read More</a>
         <br>
+
     {% endfor %}
+    <br>
+    <a href="{% url 'book_creation' %}" class="btn btn-success">اضافه کردن کتاب</a>
     
 {% endblock content%}
