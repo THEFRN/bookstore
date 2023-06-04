@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>name: {{ book.title }}</h1>
-    <h3>author: {{ book.author}}</h3>
-    <p>{{ book.description }}</p>
+    <h1>name: {{ book.title|capfirst }}</h1>
+    <h3>author: {{ book.author|capfirst }}</h3>
+    <p>{{ book.description|capfirst  }}</p>
     <h5>price: {{ book.price }}</h5>
     <br>
     <a class="btn btn-success" href="{% url 'book_list' %}">Books List</a>

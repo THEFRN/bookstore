@@ -5,13 +5,13 @@
 
 {% block content %}
     {% for book in books %}
-        <h1>{{ book.title }}</h1>
-        <p>{{ book.description }}</p>
+        <h1>{{ book.title|capfirst}}</h1>
+        <p>{{ book.description|truncatewords:10 }}</p>
         <a class="btn btn-sm btn-success" href="{{ book.get_absolute_url }}">Read More</a>
         <br>
 
     {% endfor %}
     <br>
-    <a href="{% url 'book_creation' %}" class="btn btn-success">اضافه کردن کتاب</a>
+    <a href="{% url 'book_creation' %}" class="btn btn-success">Add a book</a>
     
 {% endblock content%}
