@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 
 from .models import Book
+from .forms import CommentForm
 
 
 class BookListView(generic.ListView):
@@ -22,9 +23,26 @@ def book_detail_view(request, pk):
     book = get_object_or_404(Book, pk=pk)
     # Getting comments
     book_comments = book.comments.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            # We use commit = False, so we make an obj from the model but avoid  saving it on DB
+            new_comment = comment_form.save(commit=False)
+            # We know which book it is so =>
+            new_comment.book = book
+            # We also know that the user is accessible from request so =>
+            new_comment.user = request.user
+            # Now that every field of the form is full we can save and commit it on DB
+            new_comment.save()
+            # Return the empty form after redirection
+            comment_form = CommentForm()
+    else:
+        comment_form = CommentForm()
+
     return render(request, 'books/book_detail.html', {
         'book': book,
         'comments': book_comments,
+        'comment_form': comment_form
     })
 
 
