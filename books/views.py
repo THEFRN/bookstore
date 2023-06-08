@@ -1,7 +1,8 @@
 from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from  django.contrib.auth.decorators import login_required
 from .models import Book
 from .forms import CommentForm
 
@@ -17,7 +18,7 @@ class BookListView(generic.ListView):
 #     template_name = 'books/book_detail.html'
 #     model = Book
 #     context_object_name = 'book'
-
+@login_required
 def book_detail_view(request, pk):
     # Getting book object
     book = get_object_or_404(Book, pk=pk)
@@ -46,19 +47,19 @@ def book_detail_view(request, pk):
     })
 
 
-class BookCreationView(generic.CreateView):
+class BookCreationView(LoginRequiredMixin, generic.CreateView):
     model = Book
     template_name = 'books/book_create.html'
     fields = ['title', 'author', 'description', 'price', 'cover']
 
 
-class BookUpdateView(generic.UpdateView):
+class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Book
     template_name = 'books/book_update.html'
     fields = ['title', 'author', 'description', 'cover']
 
 
-class BookDeleteView(generic.DeleteView):
+class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Book
     template_name = 'books/book_delete.html'
     success_url = reverse_lazy('book_list')
