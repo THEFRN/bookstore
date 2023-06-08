@@ -1,7 +1,7 @@
 from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from .models import Book
 from .forms import CommentForm
@@ -53,13 +53,21 @@ class BookCreationView(LoginRequiredMixin, generic.CreateView):
     fields = ['title', 'author', 'description', 'price', 'cover']
 
 
-class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
+class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Book
     template_name = 'books/book_update.html'
     fields = ['title', 'author', 'description', 'cover']
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
-class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
+
+class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Book
     template_name = 'books/book_delete.html'
     success_url = reverse_lazy('book_list')
+
+    def test_func(self):
+        obj = self.get_object()  # We can get the object being used
+        return obj.user == self.request.user  # To see if the owner is doing all the work?
