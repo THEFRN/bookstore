@@ -23,7 +23,7 @@
                             <h5 class="small my-1"><span
                                     class="text-muted">ایجاد کننده: </span>{{ book.creator.username }}
                             </h5>
-                            {% if book.user == user %}
+                            {% if book.creator == user %}
                                 <a href="{% url 'book_update' book.id %}" class="btn btn-warning">ویرایش</a>
                                 <a href="{% url 'book_delete' book.id %}" class="btn btn-danger">حذف</a>
                             {% endif %}

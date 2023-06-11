@@ -9,7 +9,7 @@ from .forms import CommentForm
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 2
+    paginate_by = 4
     template_name = 'books/book_list.html'
     context_object_name = 'books'
 
@@ -71,3 +71,4 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView
     def test_func(self):
         obj = self.get_object()  # We can get the object being used
         return obj.user == self.request.user  # To see if the owner is doing all the work?
+
